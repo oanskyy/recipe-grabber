@@ -26,6 +26,34 @@ async function fetchRecipes(searchQuery) {
 	displayRecipes(data.hits)
 }
 
-function displayRecipes(recipeResults) { 
-    
+function displayRecipes(recipeResults) {
+	let recipeEl = ""
+
+	recipeResults.forEach(recipeResult => {
+		recipeEl += `
+        <div class="item">
+            <img src="${recipeResult.recipe.image}" />
+                <div class="content-wrapper">
+                <h2 class="recipe-title">${recipeResult.recipe.label}</h2>
+                <a href="${
+									recipeResult.recipe.url
+								}" target="_blank" class="view-recipe">View Recipe</a>
+            </div>
+            <div class="recipe-desc">
+                <p class="item-data">Calories: ${recipeResult.recipe.calories.toFixed(
+									0
+								)}</p>
+                <p class="item-data">Diet Label: ${
+									recipeResult.recipe.dietLabels
+								}</p>
+                <p class="item-data">Health Label: ${
+									recipeResult.recipe.healthLabels
+								}</p>
+                <p class="item-data">Source: ${recipeResult.recipe.source}</p>
+            </div>
+        </div>
+        `
+
+		searchResults.innerHTML = recipeEl
+	})
 }
